@@ -78,12 +78,11 @@ if __name__ == '__main__':
 	num_inp = len(sys.argv)
 
 
-	if num_inp == 1:
-		info_script()
+
+	if num_inp == 3:
+		mix_files(sys.argv[1],sys.argv[2])
 
 	elif num_inp == 2:
 		extract_words(sys.argv[1])
 
-	else :
-		mix_files(sys.argv[1],sys.argv[2])
-
+	else :info_script()
