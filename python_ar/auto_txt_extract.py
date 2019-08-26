@@ -1,5 +1,7 @@
-import os
-import sys
+#!python3
+import os,sys,tqdm
+
+
 
 def info_script():
    
@@ -21,7 +23,7 @@ def mix_files(pathEnFile,pathArFile):
 		t = txt1.split('\n')
 		t2 = txt2.split('\n')
 
-		for i in range(0, len(t)-1):
+		for i in tqdm.trange(0, len(t)-1):
 			File_comb.write(t[i] + " = " + t2[i] + "\n")
 
 
@@ -38,12 +40,15 @@ def mix_files(pathEnFile,pathArFile):
 
 def extract_words(path_of_file):
 	
+
 	file_w = open(path_of_file, 'r')
 	text = ''
 
 	try:
 		text = file_w.read()
-
+		char_not_nedded = ['\n','.',',',':','\"','\'',';']
+		for i in char_not_nedded:
+			text = text.replace(i,' ')
 	except Exception as e:
 		print(e)
 
@@ -51,10 +56,11 @@ def extract_words(path_of_file):
 		file_w.close()
 	
 	list_of_text = text.split(' ')
-	
+
 	new_list = []
 	
-	for word in list_of_text:
+	for word in tqdm.tqdm(list_of_text):
+	
 		word_lower = word.lower()
 
 		if  word_lower.isalpha() and len(word_lower) >= 3 and word_lower not in new_list:
@@ -78,7 +84,6 @@ if __name__ == '__main__':
 	num_inp = len(sys.argv)
 
 
-
 	if num_inp == 3:
 		mix_files(sys.argv[1],sys.argv[2])
 
@@ -86,3 +91,5 @@ if __name__ == '__main__':
 		extract_words(sys.argv[1])
 
 	else :info_script()
+        
+		
